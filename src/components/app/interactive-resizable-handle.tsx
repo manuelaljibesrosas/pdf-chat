@@ -18,9 +18,9 @@ const InteractiveResizableHandle: React.FC<{
       <div
         className={cn(
           "w-0.5 h-6 group-hover:h-full bg-foreground group-hover:bg-blue-600 group-hover:dark:bg-blue-800 rounded-md opacity-20 group-hover:opacity-100",
-          isDragging && "h-full bg-blue-600 dark:bg-blue-800 opacity-100",
+          direction == "horizontal" && isDragging && "h-full bg-blue-600 dark:bg-blue-800 opacity-100",
           direction === "vertical" && "w-6 h-0.5",
-          direction === "vertical" && isDragging && "w-full"
+          direction === "vertical" && isDragging && "w-full h-0.5"
         )}
       />
     </ResizableHandle>
