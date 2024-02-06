@@ -31,7 +31,7 @@ function App() {
       >
         <DefaultLayoutPluginContextProvider>
           <TooltipProvider>
-            <main className="flex flex-col h-screen bg-muted bg-gradient-to-tl to-[hsl(var(--background))] from-[hsl(var(--border))] from-35%">
+            <main className="flex flex-col h-screen h-svh bg-muted bg-gradient-to-tl to-[hsl(var(--background))] from-[hsl(var(--border))] from-35%">
               <Header />
               <ResizablePanelGroup
                 ref={imperativePanelGroupHandle}
