@@ -1,4 +1,4 @@
-import { createContext, useRef } from "react";
+import { createContext, useState } from "react";
 import { ImperativePanelGroupHandle } from "react-resizable-panels";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { Card } from "@/components/ui/card";
@@ -18,23 +18,22 @@ export const ImperativePanelGroupHandleContext =
   createContext<ImperativePanelGroupHandle | null>(null);
 
 function App() {
-  const imperativePanelGroupHandle = useRef<ImperativePanelGroupHandle | null>(
-    null
-  );
+  const [imperativePanelGroupHandle, setImperativePanelGroupHandle] =
+    useState<ImperativePanelGroupHandle | null>(null);
 
   const { isMobile } = useResponsive();
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="chatbot-ui-theme">
       <ImperativePanelGroupHandleContext.Provider
-        value={imperativePanelGroupHandle.current}
+        value={imperativePanelGroupHandle}
       >
         <DefaultLayoutPluginContextProvider>
           <TooltipProvider>
-            <main className="flex flex-col h-screen h-svh bg-muted bg-gradient-to-tl to-[hsl(var(--background))] from-[hsl(var(--border))] from-35%">
+            <main className="flex flex-col w-screen h-screen h-svh bg-muted bg-gradient-to-tl to-[hsl(var(--background))] from-[hsl(var(--border))] from-35%">
               <Header />
               <ResizablePanelGroup
-                ref={imperativePanelGroupHandle}
+                ref={setImperativePanelGroupHandle}
                 direction={isMobile ? "vertical" : "horizontal"}
                 className="p-2 pt-0"
               >
