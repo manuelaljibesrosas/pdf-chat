@@ -3,7 +3,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Bot, Image, RotateCw, Send, Wand2 } from "lucide-react";
-import { Message, fetchResponse } from "@/lib/api/ask-question";
+import { MESSAGE_TYPES, Message, fetchResponse } from "@/lib/api/ask-question";
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -66,6 +66,7 @@ function ChatBox() {
               setMessages((oldMessages) => {
                 const ret = oldMessages.concat([]);
                 ret[index] = {
+                  type: message.type,
                   text: _newMessage,
                   citations: message.citations,
                 };
@@ -98,7 +99,9 @@ function ChatBox() {
       );
 
       setMessages((messages) =>
-        messages.concat([{ text: values.message, citations: [] }])
+        messages.concat([
+          { type: MESSAGE_TYPES.USER, text: values.message, citations: [] },
+        ])
       );
 
       const response = await fetchResponse(values.message);
@@ -115,11 +118,7 @@ function ChatBox() {
           <div className="flex justify-center">
             <div className="flex flex-col gap-4 w-[calc(100%-60px)] max-w-3xl py-12">
               {messages.map((message, i) => (
-                <ChatMessage
-                  key={`chat-message-${i}`}
-                  message={message}
-                  user={i % 2 === 0}
-                />
+                <ChatMessage key={`chat-message-${i}`} message={message} />
               ))}
               {form.formState.isSubmitting && (
                 <div className="flex gap-4 pb-4">

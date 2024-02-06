@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import copy from "copy-to-clipboard";
 import { Bot, Copy, ThumbsDown, ThumbsUp } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Message } from "@/lib/api/ask-question";
+import { MESSAGE_TYPES, Message } from "@/lib/api/ask-question";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -17,10 +17,8 @@ import { Citation } from "@/components/app/citation";
 
 function ChatMessage({
   message,
-  user = true,
 }: {
   message: Omit<Message["message"], "confidence_score">;
-  user?: boolean;
 }) {
   const { toast } = useToast();
   const lines = message.text.split("\n");
@@ -35,8 +33,13 @@ function ChatMessage({
   let citationNumber = 1;
 
   return (
-    <div className={cn("flex gap-4", !user ? "pb-4" : "")}>
-      {user ? (
+    <div
+      className={cn(
+        "flex gap-4",
+        message.type === MESSAGE_TYPES.BOT ? "pb-4" : ""
+      )}
+    >
+      {message.type === MESSAGE_TYPES.USER ? (
         <Avatar className="w-7 h-7">
           <AvatarImage
             src="https://www.zeldadungeon.net/images/news/screenshot_36843.jpg"
@@ -50,7 +53,13 @@ function ChatMessage({
         </div>
       )}
       <div className="flex flex-col gap-1.5">
-        <Card className="p-4 py-3.5 rounded-tl-sm bg-border shadow bg-gradient-to-tl to-[hsl(var(--muted))] from-[hsl(var(--border))] to-50%">
+        <Card
+          className={cn(
+            "p-4 py-3.5 rounded-tl-sm bg-border shadow bg-gradient-to-tl to-[hsl(var(--muted))] from-[hsl(var(--border))] to-50%",
+            message.type === MESSAGE_TYPES.ERROR &&
+              "to-[hsl(var(--destructive))] from-[hsl(var(--destructive))]"
+          )}
+        >
           {lines
             .filter((line) => line.length > 0)
             .map((line, index) => (
@@ -70,7 +79,7 @@ function ChatMessage({
               </span>
             ))}
         </Card>
-        {!user && (
+        {message.type === MESSAGE_TYPES.BOT && (
           <div className="flex justify-end items-center gap-1.5">
             <ToggleGroup type="single">
               <Tooltip>
