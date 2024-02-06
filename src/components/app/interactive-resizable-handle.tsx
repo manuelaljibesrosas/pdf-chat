@@ -11,7 +11,7 @@ const InteractiveResizableHandle: React.FC<{
     <ResizableHandle
       className={cn(
         "group flex flex-col align-center justify-center w-1.5 bg-transparent",
-        direction === "vertical" && "w-full h-1.5"
+        direction === "vertical" && "w-full h-4"
       )}
       onDragging={setIsDragging}
     >
