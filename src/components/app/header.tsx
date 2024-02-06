@@ -120,10 +120,10 @@ function Header() {
             <Button variant="ghost" size="icon">
               <Avatar className="w-7 h-7">
                 <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
+                  src="https://www.zeldadungeon.net/images/news/screenshot_36843.jpg"
+                  alt="@manuelaljibesrosas"
                 />
-                <AvatarFallback>CN</AvatarFallback>
+                <AvatarFallback>MA</AvatarFallback>
               </Avatar>
             </Button>
           </DropdownMenuTrigger>

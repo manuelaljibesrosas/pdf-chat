@@ -38,8 +38,11 @@ function ChatMessage({
     <div className={cn("flex gap-4", !user ? "pb-4" : "")}>
       {user ? (
         <Avatar className="w-7 h-7">
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarImage
+            src="https://www.zeldadungeon.net/images/news/screenshot_36843.jpg"
+            alt="@manuelaljibesrosas"
+          />
+          <AvatarFallback>MA</AvatarFallback>
         </Avatar>
       ) : (
         <div className="w-7 h-7">
